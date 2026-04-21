@@ -6,8 +6,8 @@
    ───────────────────────────────────────────────────────────── */
 
 @font-face {
-  font-family: 'Cal Sans';
-  src: url('./fonts/CalSans-SemiBold.woff2') format('woff2');
+  font-family: "Cal Sans";
+  src: url("./fonts/CalSans-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -15,81 +15,81 @@
 
 :root {
   /* ── Brand ───────────────────────────────────────────────── */
-  --color-brand-primary:   #7C6AF7;
-  --color-brand-primary-hover: #6A57F0;
-  --color-brand-accent:    #00D4B1;
-  --color-brand-accent-hover: #00BAA0;
-  --color-brand-warm:      #F0A500;
-  --color-brand-warm-hover: #D99400;
+  --color-brand-primary: #7c6af7;
+  --color-brand-primary-hover: #6a57f0;
+  --color-brand-accent: #00d4b1;
+  --color-brand-accent-hover: #00baa0;
+  --color-brand-warm: #f0a500;
+  --color-brand-warm-hover: #d99400;
 
   /* ── Background scale ────────────────────────────────────── */
-  --color-bg-base:    #07090F;
-  --color-bg-subtle:  #0D1117;
-  --color-bg-muted:   #161B27;
-  --color-bg-overlay: #1E2537;
+  --color-bg-base: #07090f;
+  --color-bg-subtle: #0d1117;
+  --color-bg-muted: #161b27;
+  --color-bg-overlay: #1e2537;
 
   /* ── Surface / card ──────────────────────────────────────── */
-  --color-surface:         #1E2537;
-  --color-surface-raised:  #252D42;
-  --color-surface-overlay: #2C3652;
+  --color-surface: #1e2537;
+  --color-surface-raised: #252d42;
+  --color-surface-overlay: #2c3652;
 
   /* ── Border ──────────────────────────────────────────────── */
-  --color-border:       #2C3652;
-  --color-border-strong:#3D4E6B;
+  --color-border: #2c3652;
+  --color-border-strong: #3d4e6b;
 
   /* ── Text ────────────────────────────────────────────────── */
-  --color-text-primary:   #E8ECF4;
-  --color-text-secondary: #9AA5BE;
-  --color-text-muted:     #5C6880;
-  --color-text-inverse:   #07090F;
+  --color-text-primary: #e8ecf4;
+  --color-text-secondary: #9aa5be;
+  --color-text-muted: #5c6880;
+  --color-text-inverse: #07090f;
 
   /* ── Semantic feedback ───────────────────────────────────── */
-  --color-success: #22C55E;
-  --color-warning: #F0A500;
-  --color-error:   #F43F5E;
-  --color-info:    #38BDF8;
+  --color-success: #22c55e;
+  --color-warning: #f0a500;
+  --color-error: #f43f5e;
+  --color-info: #38bdf8;
 
   /* ── Typography ──────────────────────────────────────────── */
-  --font-display:  'Cal Sans', system-ui, sans-serif;
-  --font-sans:     var(--font-inter,     'system-ui', sans-serif);
-  --font-mono:     var(--font-geist-mono, 'ui-monospace', monospace);
+  --font-display: "Cal Sans", system-ui, sans-serif;
+  --font-sans: var(--font-inter, "system-ui", sans-serif);
+  --font-mono: var(--font-geist-mono, "ui-monospace", monospace);
 
   /* ── Radius ──────────────────────────────────────────────── */
-  --radius-sm:  0.375rem;  /* 6px  */
-  --radius:     0.625rem;  /* 10px */
-  --radius-md:  0.875rem;  /* 14px */
-  --radius-lg:  1.25rem;   /* 20px */
-  --radius-xl:  2rem;      /* 32px */
+  --radius-sm: 0.375rem; /* 6px  */
+  --radius: 0.625rem; /* 10px */
+  --radius-md: 0.875rem; /* 14px */
+  --radius-lg: 1.25rem; /* 20px */
+  --radius-xl: 2rem; /* 32px */
 
   /* ── Shadows / Glow ──────────────────────────────────────── */
   --shadow-glow-primary: 0 0 24px 0 rgba(124, 106, 247, 0.35);
-  --shadow-glow-accent:  0 0 24px 0 rgba(0,  212, 177, 0.30);
+  --shadow-glow-accent: 0 0 24px 0 rgba(0, 212, 177, 0.3);
 
   /* ── Transitions ─────────────────────────────────────────── */
-  --transition-fast:   150ms ease;
-  --transition-base:   250ms ease;
-  --transition-slow:   400ms ease;
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
 
   /* ── shadcn/ui compatibility mapping ─────────────────────── */
-  --background:       var(--color-bg-base);
-  --foreground:       var(--color-text-primary);
-  --card:             var(--color-surface);
-  --card-foreground:  var(--color-text-primary);
-  --popover:          var(--color-surface-raised);
+  --background: var(--color-bg-base);
+  --foreground: var(--color-text-primary);
+  --card: var(--color-surface);
+  --card-foreground: var(--color-text-primary);
+  --popover: var(--color-surface-raised);
   --popover-foreground: var(--color-text-primary);
-  --primary:          var(--color-brand-primary);
+  --primary: var(--color-brand-primary);
   --primary-foreground: var(--color-text-inverse);
-  --secondary:        var(--color-bg-muted);
+  --secondary: var(--color-bg-muted);
   --secondary-foreground: var(--color-text-primary);
-  --muted:            var(--color-bg-muted);
+  --muted: var(--color-bg-muted);
   --muted-foreground: var(--color-text-muted);
-  --accent:           var(--color-brand-accent);
+  --accent: var(--color-brand-accent);
   --accent-foreground: var(--color-text-inverse);
-  --destructive:      var(--color-error);
+  --destructive: var(--color-error);
   --destructive-foreground: #ffffff;
-  --border:           var(--color-border);
-  --input:            var(--color-border);
-  --ring:             var(--color-brand-primary);
+  --border: var(--color-border);
+  --input: var(--color-border);
+  --ring: var(--color-brand-primary);
 }
 
 /* ── Tailwind v4 @theme wiring ─────────────────────────────── */

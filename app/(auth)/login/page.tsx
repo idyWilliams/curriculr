@@ -42,7 +42,7 @@ export default function LoginPage() {
     e.preventDefault()
     setLoading(true)
     setMessage(null)
-    
+
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
@@ -91,7 +91,7 @@ export default function LoginPage() {
         className="relative z-10 w-full max-w-md"
       >
         <div className="flex flex-col items-center mb-8 text-center">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -99,7 +99,7 @@ export default function LoginPage() {
           >
             Curriculr
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
@@ -118,16 +118,16 @@ export default function LoginPage() {
           </CardHeader>
           <CardContent className="grid gap-6">
             <div className="grid grid-cols-1 gap-3">
-              <Button 
-                variant="default" 
+              <Button
+                variant="default"
                 className="w-full h-11 bg-brand-primary hover:bg-brand-primary-hover text-white flex items-center gap-2"
                 onClick={() => handleOAuthLogin('github')}
               >
                 <GithubIcon className="w-5 h-5 mr-1" />
                 Continue with GitHub
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="w-full h-11 border-border strong bg-transparent hover:bg-surface-raised text-text-primary flex items-center gap-2"
                 onClick={() => handleOAuthLogin('google')}
               >
@@ -158,8 +158,8 @@ export default function LoginPage() {
                   className="bg-bg-base/50 border-border/50 text-text-primary h-11"
                 />
               </div>
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 className="w-full h-11 bg-surface-raised hover:bg-surface-overlay text-text-primary"
                 disabled={loading}
               >
@@ -172,11 +172,10 @@ export default function LoginPage() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className={`p-3 rounded-md text-sm text-center ${
-                  message.type === 'success' 
-                    ? 'bg-success/10 text-success border border-success/20' 
+                className={`p-3 rounded-md text-sm text-center ${message.type === 'success'
+                    ? 'bg-success/10 text-success border border-success/20'
                     : 'bg-error/10 text-error border border-error/20'
-                }`}
+                  }`}
               >
                 {message.text}
               </motion.div>

@@ -1,23 +1,57 @@
-import type { NextRequest } from 'next/server'
-import { updateSession } from '@/lib/supabase/middleware'
+import { createServerClient } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'
 
 export async function proxy(request: NextRequest) {
-  const response = await updateSession(request)
-  
-  // Protect routes
-  const { pathname } = request.nextUrl
-  const isProtectedRoute = pathname.startsWith('/dashboard') || 
-                           pathname.startsWith('/tracks') || 
-                           pathname.startsWith('/profile') ||
-                           pathname.startsWith('/onboarding')
+  let supabaseResponse = NextResponse.next({ request })
 
-  // If the user isn't logged in, redirect them to login
-  // Note: updateSession already checks for user, but we need to react to it here
-  // Actually, updateSession returns the response with cookies set.
-  // We need to check if user is in that response or session.
-  // To keep it clean, we'll re-check user here using the client we just refreshed.
-  
-  return response
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll()
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) =>
+            request.cookies.set(name, value)
+          )
+          supabaseResponse = NextResponse.next({ request })
+          cookiesToSet.forEach(({ name, value, options }) =>
+            supabaseResponse.cookies.set(name, value, options)
+          )
+        },
+      },
+    }
+  )
+
+  // Refresh session — do NOT remove this.
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  const { pathname } = request.nextUrl
+
+  // Protected routes — redirect to /login if not authenticated
+  const isProtected =
+    pathname.startsWith('/dashboard') ||
+    pathname.startsWith('/tracks') ||
+    pathname.startsWith('/profile')
+
+  if (!user && isProtected) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/login'
+    return NextResponse.redirect(url)
+  }
+
+  // Already logged in and visiting /login — send to dashboard
+  if (user && pathname === '/login') {
+    const url = request.nextUrl.clone()
+    url.pathname = '/dashboard'
+    return NextResponse.redirect(url)
+  }
+
+  return supabaseResponse
 }
 
 export const config = {
