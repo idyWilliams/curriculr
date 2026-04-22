@@ -1,10 +1,11 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { createClient } from '@/lib/supabase/client'
-import { CheckCircle2, ChevronRight } from 'lucide-react'
+import { ChevronRight } from 'lucide-react'
 import { GitHubLogoIcon } from '@radix-ui/react-icons'
+import { AuthLeftPanel } from '@/components/auth/AuthLeftPanel'
 
 const SparkIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -23,21 +24,6 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const supabase = createClient()
-
-  // Simplified pseudo-counter for XP card
-  const [xpCount, setXpCount] = useState(0)
-  useEffect(() => {
-    let start = 0
-    const end = 200
-    const duration = 1500
-    const stepTime = Math.abs(Math.floor(duration / end))
-    const timer = setInterval(() => {
-      start += 1
-      setXpCount(start)
-      if (start >= end) clearInterval(timer)
-    }, stepTime)
-    return () => clearInterval(timer)
-  }, [])
 
   const handleOAuthLogin = async (provider: 'github' | 'google') => {
     const { error } = await supabase.auth.signInWithOAuth({
@@ -72,94 +58,8 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex w-full">
       
-      {/* ─── LEFT PANEL (DESKTOP) ─── */}
-      <div 
-        className="hidden lg:flex w-1/2 relative overflow-hidden flex-col justify-between p-12"
-        style={{ background: 'linear-gradient(160deg, #1B6B45 0%, #0F4C2E 40%, #141410 100%)' }}
-      >
-        {/* Background image overlay */}
-        <div className="absolute inset-0 opacity-[0.12]"
-             style={{
-               backgroundImage: 'url(/login-bg.png)',
-               backgroundSize: 'cover',
-               backgroundPosition: 'center',
-             }} />
-        {/* Dot texture on top */}
-        <div className="absolute inset-0 opacity-[0.03]"
-              style={{backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
-                      backgroundSize: '24px 24px'}} />
-
-        {/* Logo area */}
-        <div className="relative z-10 flex items-center gap-2 text-white opacity-80">
-          <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
-            <SparkIcon className="w-5 h-5 text-white" />
-          </div>
-          <span className="font-display font-semibold text-xl tracking-tight">Curriculr</span>
-        </div>
-
-        {/* Floating Cards */}
-        <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-6">
-          
-          {/* Card 1: Streak */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="w-full max-w-sm bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 shadow-2xl flex items-center gap-4"
-          >
-            <div className="w-10 h-10 rounded-full bg-[#F59E0B]/20 flex items-center justify-center shrink-0">
-              <span className="text-xl">🔥</span>
-            </div>
-            <div>
-              <div className="text-white font-bold text-sm">7-day streak</div>
-              <div className="text-white/60 text-xs mt-0.5">Frontend Engineering</div>
-            </div>
-          </motion.div>
-
-          {/* Card 2: Certificate */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="w-full max-w-sm bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 shadow-2xl flex items-center gap-4 -ml-16"
-          >
-            <div className="w-10 h-10 rounded-full bg-[#7C6AF7]/20 flex items-center justify-center shrink-0">
-              <span className="text-xl">🎓</span>
-            </div>
-            <div className="flex-1">
-              <div className="text-white font-bold text-sm">Certificate Earned</div>
-              <div className="text-white/60 text-xs mt-0.5">UI/UX Design</div>
-            </div>
-            <div className="text-right flex flex-col items-end">
-              <CheckCircle2 className="w-4 h-4 text-[#24C97E] mb-1" />
-              <div className="text-white/40 text-[10px]">Chioma A.</div>
-            </div>
-          </motion.div>
-
-          {/* Card 3: XP */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="w-full max-w-sm bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 shadow-2xl flex items-center gap-4 ml-12"
-          >
-            <div className="w-10 h-10 rounded-full bg-[#24C97E]/20 flex items-center justify-center shrink-0">
-              <span className="text-xl">⚡</span>
-            </div>
-            <div>
-              <div className="text-white font-bold text-sm">+{xpCount} XP</div>
-              <div className="text-white/60 text-xs mt-0.5">Project Approved</div>
-            </div>
-          </motion.div>
-
-        </div>
-
-        {/* Footer Text */}
-        <div className="relative z-10 text-white/80 text-sm font-medium">
-          Join 12,400+ learners 🌍
-        </div>
-      </div>
-
+      {/* ─── SHARED LEFT PANEL ─── */}
+      <AuthLeftPanel pageLabel="Authentication" />
 
       {/* ─── RIGHT PANEL (AUTH FORM) ─── */}
       <div className="w-full lg:w-1/2 bg-[var(--bg-base)] flex items-center justify-center p-6">
@@ -187,14 +87,14 @@ export default function LoginPage() {
           <div className="space-y-3 mb-8">
             <button
               onClick={() => handleOAuthLogin('github')}
-              className="w-full bg-[#24292F] hover:bg-[#3d444d] text-white rounded-xl py-3 px-4 flex items-center justify-center gap-3 font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
+              className="w-full bg-[#24292F] hover:bg-[#3d444d] text-white rounded-xl py-3 px-4 flex items-center justify-center gap-3 font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2 cursor-pointer"
             >
               <GitHubLogoIcon className="w-5 h-5" />
               Continue with GitHub
             </button>
             <button
               onClick={() => handleOAuthLogin('google')}
-              className="w-full bg-[var(--bg-surface)] border-[1.5px] border-[var(--border-default)] hover:bg-[var(--bg-elevated)] text-[var(--text-primary)] rounded-xl py-3 px-4 flex items-center justify-center gap-3 font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2"
+              className="w-full bg-[var(--bg-surface)] border-[1.5px] border-[var(--border-default)] hover:bg-[var(--bg-elevated)] text-[var(--text-primary)] rounded-xl py-3 px-4 flex items-center justify-center gap-3 font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-primary)] focus-visible:ring-offset-2 cursor-pointer"
             >
               <GoogleIcon className="w-5 h-5 text-blue-500" />
               Continue with Google
@@ -227,7 +127,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[var(--brand-primary)] hover:bg-[#22885A] text-white font-semibold rounded-xl py-3 px-4 flex items-center justify-center gap-2 shadow-[var(--shadow-brand)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] transition-all disabled:opacity-50 disabled:pointer-events-none"
+              className="w-full bg-[var(--brand-primary)] hover:bg-[#22885A] text-white font-semibold rounded-xl py-3 px-4 flex items-center justify-center gap-2 shadow-[var(--shadow-brand)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] transition-all disabled:opacity-50 disabled:pointer-events-none cursor-pointer"
             >
               {loading ? 'Sending link...' : 'Send Magic Link'}
               {!loading && <ChevronRight className="w-5 h-5" />}
@@ -254,7 +154,6 @@ export default function LoginPage() {
             By continuing, you agree to our Terms of Service and Privacy Policy.
           </p>
         </motion.div>
-
       </div>
     </div>
   )
