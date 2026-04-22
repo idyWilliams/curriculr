@@ -1,14 +1,9 @@
-brand_doc = """# CURRICULR — Official Brand Identity System
-## Version 1.0 | Built by Isentry Technologies | Abuja, Nigeria 🇳🇬
-
----
-
-## BRAND PERSONALITY
+# BRAND PERSONALITY
 
 Curriculr is warm, smart, energetic, and proudly African.
 Not cold and corporate. Not playful like a kids' app.
 
-The feeling: "Walking into a beautifully designed library
+The feeling: "Walking into a beautifully designed library 
 that has the energy of a hackathon."
 
 Inspired by: Linear's precision + Duolingo's warmth + Vercel's elegance
@@ -298,9 +293,3 @@ When prompting Cursor or Claude, start every prompt with:
 "@BRAND.md — Use the Curriculr brand system.
 No hardcoded colors. No default Tailwind palette.
 Every color, shadow, radius and font from the token system only."
-
----
-
-Built by Idorenyin Williams · Isentry Technologies · Abuja, Nigeria 🇳🇬
-curriculr.dev · Open Source · MIT License
-"""

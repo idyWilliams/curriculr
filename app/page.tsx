@@ -14,11 +14,13 @@ import {
   Code,
   Award,
   CheckCircle2,
-  Star,
-  Github,
-  Twitter,
-  Linkedin
+  Star
 } from 'lucide-react'
+import {
+  GitHubLogoIcon as Github,
+  TwitterLogoIcon as Twitter,
+  LinkedInLogoIcon as Linkedin
+} from '@radix-ui/react-icons'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // SHARED COMPONENTS
