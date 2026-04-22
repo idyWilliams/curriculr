@@ -265,3 +265,20 @@ body {
 .animate-marquee {
   animation: marquee 30s linear infinite;
 }
+
+/* ─────────────────────────────────────────────────────────────
+   Global Overrides
+   ───────────────────────────────────────────────────────────── */
+
+html, body {
+  background-color: var(--bg-base) !important;
+  color: var(--text-primary);
+}
+
+.bg-white, [class*="bg-white"] {
+  background-color: var(--bg-surface) !important;
+}
+
+main, [data-page], #__next > div {
+  background-color: var(--bg-base);
+}

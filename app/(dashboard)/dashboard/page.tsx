@@ -83,11 +83,11 @@ function ProgressRing({ pct }: { pct: number }) {
   const offset = circ - (pct / 100) * circ
   return (
     <svg width="88" height="88" className="-rotate-90" viewBox="0 0 88 88">
-      <circle cx="44" cy="44" r={r} fill="none" stroke="#2C3652" strokeWidth="6" />
+      <circle cx="44" cy="44" r={r} fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="6" />
       <motion.circle
         cx="44" cy="44" r={r}
         fill="none"
-        stroke="url(#ring-grad)"
+        stroke="#ffffff"
         strokeWidth="6"
         strokeLinecap="round"
         strokeDasharray={circ}
@@ -95,12 +95,6 @@ function ProgressRing({ pct }: { pct: number }) {
         animate={{ strokeDashoffset: offset }}
         transition={{ duration: 1.2, delay: 0.3, ease: 'easeOut' }}
       />
-      <defs>
-        <linearGradient id="ring-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#7C6AF7" />
-          <stop offset="100%" stopColor="#00D4B1" />
-        </linearGradient>
-      </defs>
     </svg>
   )
 }
@@ -124,48 +118,59 @@ export default function DashboardPage() {
           {/* ── Continue Learning Hero ── */}
           <motion.div
             variants={item}
-            className="relative overflow-hidden rounded-2xl border border-brand-primary/25 p-6"
+            className="relative overflow-hidden rounded-2xl p-8 text-white shadow-lg"
             style={{
-              background: 'linear-gradient(135deg, rgba(124,106,247,0.12) 0%, rgba(0,212,177,0.06) 100%)',
-              boxShadow: '0 0 0 1px rgba(124,106,247,0.12), 0 16px 48px rgba(0,0,0,0.3)',
+              background: 'linear-gradient(135deg, #1B6B45 0%, #0F4C2E 55%, #0A2E1C 100%)'
             }}
           >
-            {/* BG glow */}
-            <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-brand-primary/10 blur-[60px] pointer-events-none" />
+            {/* Texture overlay */}
+            <div className="absolute inset-0 opacity-[0.03]"
+              style={{backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
+                      backgroundSize: '24px 24px'}} />
 
-            <div className="relative flex items-center gap-6">
-              {/* Ring */}
-              <div className="relative shrink-0">
-                <ProgressRing pct={CURRENT_LESSON.progress} />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-base font-bold text-text-primary">{CURRENT_LESSON.progress}%</span>
-                </div>
-              </div>
-
-              {/* Info */}
+            <div className="relative flex items-center justify-between gap-6 z-10">
+              {/* Left Info */}
               <div className="flex-1 min-w-0">
-                <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-brand-primary uppercase tracking-widest mb-2">
-                  <BookOpen className="w-3 h-3" />
-                  {CURRENT_LESSON.track} · {CURRENT_LESSON.module}
-                </span>
-                <h2 className="text-xl font-display font-semibold text-text-primary mb-1 truncate">
+                <div className="inline-block bg-white/15 text-white rounded-full px-3 py-1 text-xs font-semibold mb-4">
+                  {CURRENT_LESSON.track}
+                </div>
+                <h2 className="text-2xl font-display font-bold text-white mb-2 truncate">
                   {CURRENT_LESSON.title}
                 </h2>
-                <p className="text-sm text-text-muted flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5" /> {CURRENT_LESSON.timeLeft}
+                <p className="text-sm text-white/70 flex items-center gap-1.5 mb-6">
+                  {CURRENT_LESSON.module} · {CURRENT_LESSON.timeLeft}
                 </p>
+                
+                {/* Progress bar instead of ring for left side? Wait, the prompt says "Progress ring (right): SVG circle, white stroke, animated". I will put the progress bar here, and the ring on the right. */}
+                <div className="flex items-center gap-4 mb-8 max-w-md">
+                  <div className="flex-1 h-1.5 bg-white/20 rounded-full overflow-hidden">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      animate={{ width: `${CURRENT_LESSON.progress}%` }}
+                      transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+                      className="h-full bg-white rounded-full" 
+                    />
+                  </div>
+                  <span className="text-xs font-bold text-white/90">{CURRENT_LESSON.progress}%</span>
+                </div>
+
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="bg-white text-[#1B6B45] font-bold rounded-xl px-6 py-3 hover:bg-white/90 shadow-lg transition-colors flex items-center gap-2 cursor-pointer"
+                >
+                  <Play className="w-4 h-4 fill-[#1B6B45]" />
+                  Resume Learning
+                </motion.button>
               </div>
 
-              {/* CTA */}
-              <motion.button
-                whileHover={{ scale: 1.03, boxShadow: '0 0 28px rgba(124,106,247,0.45)' }}
-                whileTap={{ scale: 0.97 }}
-                className="shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white transition-all"
-                style={{ background: 'linear-gradient(135deg, #7C6AF7, #6A57F0)' }}
-              >
-                <Play className="w-4 h-4 fill-white" />
-                Resume
-              </motion.button>
+              {/* Right: Progress Ring */}
+              <div className="relative shrink-0 hidden md:block mr-4">
+                <ProgressRing pct={CURRENT_LESSON.progress} />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-xl font-display font-bold text-white">{CURRENT_LESSON.progress}%</span>
+                </div>
+              </div>
             </div>
           </motion.div>
 

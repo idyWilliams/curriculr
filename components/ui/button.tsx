@@ -5,20 +5,20 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[10px] font-semibold transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1B6B45] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 cursor-pointer',
   {
     variants: {
       variant: {
         default:
-          'bg-[var(--primary)] text-[var(--primary-foreground)] shadow hover:bg-[var(--color-brand-primary-hover)]',
+          'bg-[#1B6B45] hover:bg-[#22885A] text-white shadow-[0_4px_20px_rgba(27,107,69,0.25)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]',
         destructive:
-          'bg-[var(--destructive)] text-[var(--destructive-foreground)] shadow-sm hover:bg-[var(--destructive)]/90',
+          'bg-[var(--accent-red)] text-white',
         outline:
-          'border border-[var(--border)] bg-transparent shadow-sm hover:bg-[var(--accent)] hover:text-[var(--accent-foreground)]',
+          'bg-transparent border-[1.5px] border-[#E4E2DA] text-[#18181A] hover:border-[#1B6B45] hover:bg-[#D1FAE5]',
         secondary:
           'bg-[var(--secondary)] text-[var(--secondary-foreground)] shadow-sm hover:bg-[var(--secondary)]/80',
         ghost:
-          'hover:bg-[var(--accent)]/10 hover:text-[var(--accent-foreground)]',
+          'bg-transparent text-[#52524E] hover:bg-[#EFEDE8] hover:text-[#18181A]',
         link: 'text-[var(--primary)] underline-offset-4 hover:underline',
       },
       size: {
