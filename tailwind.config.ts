@@ -12,51 +12,53 @@ const config: Config = {
       colors: {
         // ── Brand ─────────────────────────────────────────
         brand: {
-          primary: '#7C6AF7',
-          accent:  '#00D4B1',
-          warm:    '#F0A500',
+          primary: 'var(--color-brand-primary)',
+          'primary-hover': 'var(--color-brand-primary-hover)',
+          light: 'var(--color-brand-light)',
+          accent: 'var(--color-brand-accent)',
+          yellow: 'var(--color-brand-yellow)',
+          blue: 'var(--color-brand-blue)',
         },
-        // ── Background scale ──────────────────────────────
+        // ── Backgrounds ───────────────────────────────────
         bg: {
-          base:    '#07090F',
-          subtle:  '#0D1117',
-          muted:   '#161B27',
-          overlay: '#1E2537',
+          base: 'var(--color-bg-base)',
+          surface: 'var(--color-bg-surface)',
+          elevated: 'var(--color-bg-elevated)',
+          sidebar: 'var(--color-bg-sidebar)',
         },
-        // ── Surface / border ──────────────────────────────
+        // ── Surfaces ──────────────────────────────────────
         surface: {
-          DEFAULT: '#1E2537',
-          raised:  '#252D42',
-          overlay: '#2C3652',
+          DEFAULT: 'var(--color-bg-surface)',
+          raised: 'var(--color-bg-elevated)',
         },
+        // ── Borders ───────────────────────────────────────
         border: {
-          DEFAULT: '#2C3652',
-          strong:  '#3D4E6B',
+          DEFAULT: 'var(--color-border)',
         },
         // ── Text ──────────────────────────────────────────
         text: {
-          primary:   '#E8ECF4',
-          secondary: '#9AA5BE',
-          muted:     '#5C6880',
-          inverse:   '#07090F',
+          primary: 'var(--color-text-primary)',
+          secondary: 'var(--color-text-secondary)',
+          muted: 'var(--color-text-muted)',
         },
         // ── Semantic ──────────────────────────────────────
-        success: '#22C55E',
-        warning: '#F0A500',
-        error:   '#F43F5E',
-        info:    '#38BDF8',
+        success: 'var(--color-success)',
+        warning: 'var(--color-warning)',
+        error: 'var(--color-error)',
+        info: 'var(--color-info)',
       },
       fontFamily: {
-        display: ['var(--font-cal-sans)', 'system-ui', 'sans-serif'],
-        sans:    ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        mono:    ['var(--font-geist-mono)', 'ui-monospace', 'monospace'],
+        display: ['var(--font-display)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-mono)', 'ui-monospace', 'monospace'],
       },
       borderRadius: {
         '4xl': '2rem',
       },
       boxShadow: {
-        'glow-primary': '0 0 24px 0 rgba(124, 106, 247, 0.35)',
-        'glow-accent':  '0 0 24px 0 rgba(0, 212, 177, 0.30)',
+        'card': 'var(--shadow-card)',
+        'card-hover': 'var(--shadow-card-hover)',
+        'glow-primary': 'var(--shadow-glow-primary)',
       },
     },
   },

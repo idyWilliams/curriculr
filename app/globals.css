@@ -2,7 +2,7 @@
 
 /* ─────────────────────────────────────────────────────────────
    Curriculr Design Token System
-   All primitive and semantic tokens as CSS custom properties.
+   Warm, learner-focused design system (Duolingo × Notion)
    ───────────────────────────────────────────────────────────── */
 
 @font-face {
@@ -13,80 +13,125 @@
   font-display: swap;
 }
 
+/* ── Light Mode (Default) ──────────────────────────────────── */
 :root {
-  /* ── Brand ───────────────────────────────────────────────── */
-  --color-brand-primary: #7c6af7;
-  --color-brand-primary-hover: #6a57f0;
-  --color-brand-accent: #00d4b1;
-  --color-brand-accent-hover: #00baa0;
-  --color-brand-warm: #f0a500;
-  --color-brand-warm-hover: #d99400;
+  /* Backgrounds */
+  --color-bg-base: #FAFAF7;
+  --color-bg-surface: #FFFFFF;
+  --color-bg-elevated: #F4F4EF;
+  --color-bg-sidebar: #F0EFE9;
 
-  /* ── Background scale ────────────────────────────────────── */
-  --color-bg-base: #07090f;
-  --color-bg-subtle: #0d1117;
-  --color-bg-muted: #161b27;
-  --color-bg-overlay: #1e2537;
+  /* Brand */
+  --color-brand-primary: #1A6B4A;
+  --color-brand-primary-hover: #14553A;
+  --color-brand-light: #22C37A;
+  --color-brand-accent: #F97316;
+  --color-brand-yellow: #FBBF24;
+  --color-brand-blue: #3B6FE8;
 
-  /* ── Surface / card ──────────────────────────────────────── */
-  --color-surface: #1e2537;
-  --color-surface-raised: #252d42;
-  --color-surface-overlay: #2c3652;
+  /* Text */
+  --color-text-primary: #1A1A18;
+  --color-text-secondary: #6B6B5E;
+  --color-text-muted: #A8A89A;
 
-  /* ── Border ──────────────────────────────────────────────── */
-  --color-border: #2c3652;
-  --color-border-strong: #3d4e6b;
+  /* UI */
+  --color-border: #E8E8E0;
 
-  /* ── Text ────────────────────────────────────────────────── */
-  --color-text-primary: #e8ecf4;
-  --color-text-secondary: #9aa5be;
-  --color-text-muted: #5c6880;
-  --color-text-inverse: #07090f;
+  /* Semantic */
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+  --color-info: #3B82F6;
 
-  /* ── Semantic feedback ───────────────────────────────────── */
-  --color-success: #22c55e;
-  --color-warning: #f0a500;
-  --color-error: #f43f5e;
-  --color-info: #38bdf8;
-
-  /* ── Typography ──────────────────────────────────────────── */
+  /* Typography */
   --font-display: "Cal Sans", system-ui, sans-serif;
   --font-sans: var(--font-inter, "system-ui", sans-serif);
   --font-mono: var(--font-geist-mono, "ui-monospace", monospace);
 
-  /* ── Radius ──────────────────────────────────────────────── */
-  --radius-sm: 0.375rem; /* 6px  */
-  --radius: 0.625rem; /* 10px */
-  --radius-md: 0.875rem; /* 14px */
-  --radius-lg: 1.25rem; /* 20px */
-  --radius-xl: 2rem; /* 32px */
+  /* Radius */
+  --radius-sm: 0.375rem;
+  --radius: 0.625rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 2rem;
 
-  /* ── Shadows / Glow ──────────────────────────────────────── */
-  --shadow-glow-primary: 0 0 24px 0 rgba(124, 106, 247, 0.35);
-  --shadow-glow-accent: 0 0 24px 0 rgba(0, 212, 177, 0.3);
+  /* Shadows */
+  --shadow-glow-primary: 0 0 24px 0 rgba(26, 107, 74, 0.15);
+  --shadow-card: 0 1px 3px 0 rgba(26, 26, 24, 0.1), 0 1px 2px -1px rgba(26, 26, 24, 0.1);
+  --shadow-card-hover: 0 4px 12px 0 rgba(26, 26, 24, 0.08);
 
-  /* ── Transitions ─────────────────────────────────────────── */
+  /* Transitions */
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
   --transition-slow: 400ms ease;
 
-  /* ── shadcn/ui compatibility mapping ─────────────────────── */
+  /* shadcn/ui compatibility */
   --background: var(--color-bg-base);
   --foreground: var(--color-text-primary);
-  --card: var(--color-surface);
+  --card: var(--color-bg-surface);
   --card-foreground: var(--color-text-primary);
-  --popover: var(--color-surface-raised);
+  --popover: var(--color-bg-surface);
   --popover-foreground: var(--color-text-primary);
   --primary: var(--color-brand-primary);
-  --primary-foreground: var(--color-text-inverse);
-  --secondary: var(--color-bg-muted);
+  --primary-foreground: #FFFFFF;
+  --secondary: var(--color-bg-elevated);
   --secondary-foreground: var(--color-text-primary);
-  --muted: var(--color-bg-muted);
-  --muted-foreground: var(--color-text-muted);
+  --muted: var(--color-bg-elevated);
+  --muted-foreground: var(--color-text-secondary);
   --accent: var(--color-brand-accent);
-  --accent-foreground: var(--color-text-inverse);
+  --accent-foreground: #FFFFFF;
   --destructive: var(--color-error);
-  --destructive-foreground: #ffffff;
+  --destructive-foreground: #FFFFFF;
+  --border: var(--color-border);
+  --input: var(--color-border);
+  --ring: var(--color-brand-primary);
+}
+
+/* ── Dark Mode ─────────────────────────────────────────────── */
+.dark {
+  --color-bg-base: #141410;
+  --color-bg-surface: #1C1C18;
+  --color-bg-elevated: #242420;
+  --color-bg-sidebar: #1A1A16;
+
+  --color-brand-primary: #22C37A;
+  --color-brand-primary-hover: #1DA36B;
+  --color-brand-light: #34D398;
+  --color-brand-accent: #F97316;
+  --color-brand-yellow: #FBBF24;
+  --color-brand-blue: #60A5FA;
+
+  --color-text-primary: #F0EFEA;
+  --color-text-secondary: #A8A89A;
+  --color-text-muted: #6B6B5E;
+
+  --color-border: #2A2A24;
+
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+  --color-info: #3B82F6;
+
+  --shadow-glow-primary: 0 0 24px 0 rgba(34, 195, 122, 0.2);
+  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px -1px rgba(0, 0, 0, 0.2);
+  --shadow-card-hover: 0 4px 12px 0 rgba(0, 0, 0, 0.25);
+
+  --background: var(--color-bg-base);
+  --foreground: var(--color-text-primary);
+  --card: var(--color-bg-surface);
+  --card-foreground: var(--color-text-primary);
+  --popover: var(--color-bg-surface);
+  --popover-foreground: var(--color-text-primary);
+  --primary: var(--color-brand-primary);
+  --primary-foreground: #1A1A18;
+  --secondary: var(--color-bg-elevated);
+  --secondary-foreground: var(--color-text-primary);
+  --muted: var(--color-bg-elevated);
+  --muted-foreground: var(--color-text-secondary);
+  --accent: var(--color-brand-accent);
+  --accent-foreground: #FFFFFF;
+  --destructive: var(--color-error);
+  --destructive-foreground: #FFFFFF;
   --border: var(--color-border);
   --input: var(--color-border);
   --ring: var(--color-brand-primary);
@@ -127,7 +172,7 @@ body {
 
 /* ── Selection ───────────────────────────────────────────────── */
 ::selection {
-  background-color: rgba(124, 106, 247, 0.35);
+  background-color: rgba(34, 195, 122, 0.2);
   color: var(--color-text-primary);
 }
 
@@ -137,10 +182,10 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-bg-subtle);
+  background: var(--color-bg-elevated);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border-strong);
+  background: var(--color-border);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {

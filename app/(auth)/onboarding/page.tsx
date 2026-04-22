@@ -19,44 +19,48 @@ const ROLES = [
     label: 'Student',
     icon: GraduationCap,
     desc: 'Learning at my own pace',
-    color: 'from-brand-primary/20 to-brand-primary/5',
-    glow: 'rgba(124,106,247,0.3)',
+    glow: 'rgba(34, 195, 122, 0.25)',
     iconColor: 'text-brand-primary',
+    borderSelected: 'border-brand-primary',
+    bgSelected: 'bg-brand-primary/10',
   },
   {
     id: 'school',
     label: 'School',
     icon: Building2,
     desc: 'Managing educational tracks',
-    color: 'from-brand-accent/20 to-brand-accent/5',
-    glow: 'rgba(0,212,177,0.25)',
-    iconColor: 'text-brand-accent',
+    glow: 'rgba(59, 111, 232, 0.2)',
+    iconColor: 'text-brand-blue',
+    borderSelected: 'border-brand-blue',
+    bgSelected: 'bg-brand-blue/10',
   },
   {
     id: 'company',
     label: 'Company',
     icon: Users,
     desc: 'Upskilling our team',
-    color: 'from-brand-warm/20 to-brand-warm/5',
-    glow: 'rgba(240,165,0,0.25)',
-    iconColor: 'text-brand-warm',
+    glow: 'rgba(249, 115, 22, 0.2)',
+    iconColor: 'text-brand-accent',
+    borderSelected: 'border-brand-accent',
+    bgSelected: 'bg-brand-accent/10',
   },
   {
     id: 'developer',
     label: 'Developer',
     icon: Terminal,
     desc: 'Building the future',
-    color: 'from-info/20 to-info/5',
-    glow: 'rgba(56,189,248,0.25)',
-    iconColor: 'text-info',
+    glow: 'rgba(251, 191, 36, 0.25)',
+    iconColor: 'text-brand-yellow',
+    borderSelected: 'border-brand-yellow',
+    bgSelected: 'bg-brand-yellow/10',
   },
 ]
 
 const TRACKS = [
   { id: 'fullstack', title: 'Fullstack Mastery', tag: 'DEV', desc: 'React, Node, databases, and deployment', color: 'text-brand-primary', bg: 'bg-brand-primary/10', border: 'border-brand-primary/30' },
-  { id: 'ai', title: 'Generative AI', tag: 'DATA', desc: 'LLMs, agents, RAG, and fine-tuning', color: 'text-brand-accent', bg: 'bg-brand-accent/10', border: 'border-brand-accent/30' },
-  { id: 'systems', title: 'Systems Design', tag: 'ENG', desc: 'Scalability, reliability, distributed systems', color: 'text-brand-warm', bg: 'bg-brand-warm/10', border: 'border-brand-warm/30' },
-  { id: 'product', title: 'Product Strategy', tag: 'BIZ', desc: 'Roadmaps, metrics, and go-to-market', color: 'text-info', bg: 'bg-info/10', border: 'border-info/30' },
+  { id: 'ai', title: 'Generative AI', tag: 'DATA', desc: 'LLMs, agents, RAG, and fine-tuning', color: 'text-brand-blue', bg: 'bg-brand-blue/10', border: 'border-brand-blue/30' },
+  { id: 'systems', title: 'Systems Design', tag: 'ENG', desc: 'Scalability, reliability, distributed systems', color: 'text-brand-accent', bg: 'bg-brand-accent/10', border: 'border-brand-accent/30' },
+  { id: 'product', title: 'Product Strategy', tag: 'BIZ', desc: 'Roadmaps, metrics, and go-to-market', color: 'text-brand-yellow', bg: 'bg-brand-yellow/10', border: 'border-brand-yellow/30' },
 ]
 
 const STEP_LABELS = ['Identity', 'Track', 'GitHub', 'Style']
@@ -101,27 +105,24 @@ export default function OnboardingPage() {
   return (
     <div className="relative min-h-screen bg-bg-base flex flex-col items-center justify-center px-4 overflow-hidden">
 
-      {/* ── Background Orbs ── */}
+      {/* Warm ambient background */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <motion.div
-          animate={{ x: [0, 50, 0], y: [0, -30, 0] }}
-          transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ background: 'radial-gradient(circle, rgba(124,106,247,0.35) 0%, transparent 70%)' }}
-          className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full blur-[100px]"
+          animate={{ x: [0, 40, 0], y: [0, -25, 0] }}
+          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-brand-light/10 blur-[100px]"
         />
         <motion.div
-          animate={{ x: [0, -40, 0], y: [0, 40, 0] }}
-          transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
-          style={{ background: 'radial-gradient(circle, rgba(0,212,177,0.25) 0%, transparent 70%)' }}
-          className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full blur-[100px]"
+          animate={{ x: [0, -35, 0], y: [0, 35, 0] }}
+          transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
+          className="absolute -bottom-40 -right-40 w-[450px] h-[450px] rounded-full bg-brand-accent/8 blur-[100px]"
         />
       </div>
 
       <div className="relative z-10 w-full max-w-lg">
 
-        {/* ── Step Indicator ── */}
+        {/* Step Indicator */}
         <div className="mb-10">
-          {/* Step pills */}
           <div className="flex items-center justify-between mb-5">
             {STEP_LABELS.map((label, i) => {
               const n = i + 1
@@ -132,9 +133,9 @@ export default function OnboardingPage() {
                   <div className="flex flex-col items-center gap-1.5">
                     <div className={cn(
                       'w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300',
-                      done ? 'bg-brand-primary text-white shadow-[0_0_12px_rgba(124,106,247,0.5)]' :
-                      active ? 'bg-brand-primary/20 text-brand-primary border-2 border-brand-primary' :
-                      'bg-surface border border-border text-text-muted'
+                      done ? 'bg-brand-primary text-white shadow-glow-primary' :
+                      active ? 'bg-brand-primary/15 text-brand-primary border-2 border-brand-primary' :
+                      'bg-bg-surface border border-border text-text-muted'
                     )}>
                       {done ? <Check className="w-4 h-4" /> : n}
                     </div>
@@ -161,21 +162,24 @@ export default function OnboardingPage() {
             })}
           </div>
 
-          {/* Progress bar */}
-          <div className="h-1 w-full bg-surface-raised rounded-full overflow-hidden">
+          {/* Progress bar - Orange accent */}
+          <div className="h-1.5 w-full bg-bg-elevated rounded-full overflow-hidden">
             <motion.div
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               className="h-full rounded-full"
-              style={{ background: 'linear-gradient(90deg, #7C6AF7, #00D4B1)', boxShadow: '0 0 12px rgba(124,106,247,0.5)' }}
+              style={{
+                background: 'linear-gradient(90deg, #F97316, #FBBF24)',
+                boxShadow: '0 0 12px rgba(249, 115, 22, 0.4)'
+              }}
             />
           </div>
         </div>
 
-        {/* ── Card ── */}
+        {/* Card */}
         <div
-          className="rounded-2xl border border-border bg-surface/60 backdrop-blur-2xl overflow-hidden"
-          style={{ boxShadow: '0 0 0 1px rgba(124,106,247,0.06), 0 24px 64px rgba(0,0,0,0.45)' }}
+          className="rounded-2xl border border-border bg-bg-surface shadow-card overflow-hidden"
+          style={{ boxShadow: 'var(--shadow-card)' }}
         >
           <AnimatePresence mode="wait" custom={dir}>
             <motion.div
@@ -187,7 +191,7 @@ export default function OnboardingPage() {
               exit="exit"
               className="p-8"
             >
-              {/* ── Step 1: Who are you? ── */}
+              {/* Step 1: Who are you? */}
               {step === 1 && (
                 <div>
                   <h2 className="text-2xl font-display font-semibold text-text-primary mb-1">Who are you?</h2>
@@ -203,10 +207,10 @@ export default function OnboardingPage() {
                           className={cn(
                             'group relative flex flex-col items-start p-4 rounded-xl border transition-all duration-300 text-left overflow-hidden',
                             selected
-                              ? 'border-brand-primary/60 bg-brand-primary/10'
-                              : 'border-border bg-bg-overlay/30 hover:border-border-strong hover:bg-surface-raised'
+                              ? `${role.borderSelected} ${role.bgSelected}`
+                              : 'border-border bg-bg-elevated hover:border-brand-primary/40 hover:bg-bg-surface'
                           )}
-                          style={selected ? { boxShadow: `0 0 20px ${role.glow}` } : {}}
+                          style={selected ? { boxShadow: `0 0 16px ${role.glow}` } : {}}
                         >
                           {selected && (
                             <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-brand-primary flex items-center justify-center">
@@ -225,7 +229,7 @@ export default function OnboardingPage() {
                 </div>
               )}
 
-              {/* ── Step 2: Track ── */}
+              {/* Step 2: Track */}
               {step === 2 && (
                 <div>
                   <h2 className="text-2xl font-display font-semibold text-text-primary mb-1">Pick your first track</h2>
@@ -241,7 +245,7 @@ export default function OnboardingPage() {
                             'flex items-center gap-4 p-4 rounded-xl border transition-all duration-250 text-left group',
                             selected
                               ? `border-brand-primary/50 ${track.bg}`
-                              : 'border-border bg-bg-overlay/30 hover:bg-surface-raised hover:border-border-strong'
+                              : 'border-border bg-bg-elevated hover:bg-bg-surface hover:border-brand-primary/40'
                           )}
                         >
                           <span className={cn('shrink-0 text-[10px] font-bold font-mono px-2 py-1 rounded-md border', track.color, track.bg, track.border)}>
@@ -259,12 +263,12 @@ export default function OnboardingPage() {
                 </div>
               )}
 
-              {/* ── Step 3: GitHub ── */}
+              {/* Step 3: GitHub */}
               {step === 3 && (
                 <div className="flex flex-col items-center text-center py-4">
                   <div
-                    className="w-20 h-20 rounded-2xl flex items-center justify-center mb-6 border border-border-strong"
-                    style={{ background: 'linear-gradient(135deg, #1c1c1e, #2c2c2e)', boxShadow: '0 0 32px rgba(124,106,247,0.2)' }}
+                    className="w-20 h-20 rounded-2xl flex items-center justify-center mb-6 border border-border bg-bg-elevated"
+                    style={{ boxShadow: 'var(--shadow-card)' }}
                   >
                     <GithubIcon className="w-10 h-10 text-text-primary" />
                   </div>
@@ -274,7 +278,7 @@ export default function OnboardingPage() {
                   </p>
                   <button
                     onClick={() => goTo(4)}
-                    className="w-full flex items-center justify-center gap-3 h-12 rounded-xl bg-[#f5f5f5] hover:bg-white text-black font-semibold text-sm transition-all mb-4 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+                    className="w-full flex items-center justify-center gap-3 h-12 rounded-xl bg-[#24292f] hover:bg-[#1a1d21] text-white font-semibold text-sm transition-all mb-4 shadow-sm"
                   >
                     <GithubIcon className="w-5 h-5" />
                     Connect with GitHub
@@ -288,7 +292,7 @@ export default function OnboardingPage() {
                 </div>
               )}
 
-              {/* ── Step 4: Learning Style ── */}
+              {/* Step 4: Learning Style */}
               {step === 4 && (
                 <div className="flex flex-col items-center text-center">
                   <h2 className="text-2xl font-display font-semibold text-text-primary mb-1">Your learning style</h2>
@@ -296,8 +300,8 @@ export default function OnboardingPage() {
 
                   <div className="grid grid-cols-2 gap-3 w-full mb-8">
                     {[
-                      { id: 'solo', label: 'Go Solo', icon: Rocket, desc: 'Self-paced, your schedule', glow: 'rgba(124,106,247,0.3)' },
-                      { id: 'cohort', label: 'Join Cohort', icon: Users, desc: 'Peer learning & accountability', glow: 'rgba(0,212,177,0.3)' },
+                      { id: 'solo', label: 'Go Solo', icon: Rocket, desc: 'Self-paced, your schedule', glow: 'rgba(34, 195, 122, 0.3)' },
+                      { id: 'cohort', label: 'Join Cohort', icon: Users, desc: 'Peer learning & accountability', glow: 'rgba(59, 111, 232, 0.25)' },
                     ].map(opt => {
                       const Icon = opt.icon
                       const selected = form.mode === opt.id
@@ -309,9 +313,9 @@ export default function OnboardingPage() {
                             'flex flex-col items-center gap-3 p-5 rounded-xl border transition-all duration-250',
                             selected
                               ? 'border-brand-primary/60 bg-brand-primary/10'
-                              : 'border-border bg-bg-overlay/30 hover:bg-surface-raised hover:border-border-strong'
+                              : 'border-border bg-bg-elevated hover:bg-bg-surface hover:border-brand-primary/40'
                           )}
-                          style={selected ? { boxShadow: `0 0 24px ${opt.glow}` } : {}}
+                          style={selected ? { boxShadow: `0 0 20px ${opt.glow}` } : {}}
                         >
                           <Icon className={cn('w-7 h-7', selected ? 'text-brand-primary' : 'text-text-muted')} />
                           <div>
@@ -331,8 +335,7 @@ export default function OnboardingPage() {
                   <button
                     disabled={loading}
                     onClick={handleComplete}
-                    className="w-full flex items-center justify-center gap-2 h-12 rounded-xl font-bold text-sm text-white transition-all disabled:opacity-50"
-                    style={{ background: 'linear-gradient(135deg, #7C6AF7, #00D4B1)', boxShadow: '0 0 28px rgba(124,106,247,0.5)' }}
+                    className="w-full flex items-center justify-center gap-2 h-12 rounded-xl font-bold text-sm text-white transition-all disabled:opacity-50 bg-brand-primary hover:bg-brand-primary-hover shadow-sm hover:shadow"
                   >
                     {loading ? 'Setting up your account…' : 'Launch Dashboard'}
                     {!loading && <ChevronRight className="w-4 h-4" />}
@@ -343,7 +346,7 @@ export default function OnboardingPage() {
           </AnimatePresence>
         </div>
 
-        {/* ── Nav ── */}
+        {/* Nav */}
         <div className="flex items-center justify-between mt-6">
           <button
             onClick={() => goTo(step - 1)}
