@@ -77,6 +77,14 @@ export default function LoginPage() {
         className="hidden lg:flex w-1/2 relative overflow-hidden flex-col justify-between p-12"
         style={{ background: 'linear-gradient(160deg, #1B6B45 0%, #0F4C2E 40%, #141410 100%)' }}
       >
+        {/* Background image overlay */}
+        <div className="absolute inset-0 opacity-[0.12]"
+             style={{
+               backgroundImage: 'url(/login-bg.png)',
+               backgroundSize: 'cover',
+               backgroundPosition: 'center',
+             }} />
+        {/* Dot texture on top */}
         <div className="absolute inset-0 opacity-[0.03]"
               style={{backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
                       backgroundSize: '24px 24px'}} />
