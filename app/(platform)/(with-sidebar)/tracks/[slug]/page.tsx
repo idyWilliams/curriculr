@@ -226,7 +226,10 @@ function ModuleRow({ mod, index, color, completedIds, firstLesson }: {
 }
 
 // ─── Page ─────────────────────────────────────────────────────
-export default function TrackDetailPage({ params }: { params: { slug: string } }) {
+export default function TrackDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const unwrappedParams = React.use(params)
+  const slug = unwrappedParams.slug
+
   const [track, setTrack] = useState<Track>(STATIC_TRACK)
   const [modules, setModules] = useState<Module[]>(STATIC_MODULES)
   const [enrollment, setEnrollment] = useState<Enrollment | null>(null)
@@ -237,7 +240,7 @@ export default function TrackDetailPage({ params }: { params: { slug: string } }
     const load = async () => {
       const supabase = createClient()
       const [{ data: t }, { data: { user } }] = await Promise.all([
-        supabase.from('tracks').select('*').eq('slug', params.slug).single(),
+        supabase.from('tracks').select('*').eq('slug', slug).single(),
         supabase.auth.getUser(),
       ])
       if (t) setTrack(t)
@@ -266,7 +269,7 @@ export default function TrackDetailPage({ params }: { params: { slug: string } }
       }
     }
     load()
-  }, [params.slug])
+  }, [slug])
 
   const handleEnroll = async () => {
     const supabase = createClient()
@@ -322,7 +325,7 @@ export default function TrackDetailPage({ params }: { params: { slug: string } }
             {enrollment ? (
               <div>
                 <Link
-                  href={resumeLesson ? `/tracks/${params.slug}/lessons/${resumeLesson.id}` : '#'}
+                  href={resumeLesson ? `/tracks/${slug}/lessons/${resumeLesson.id}` : '#'}
                   className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-base shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5"
                   style={{ backgroundColor: 'white', color: track.color }}
                 >
@@ -345,7 +348,7 @@ export default function TrackDetailPage({ params }: { params: { slug: string } }
                 >
                   {enrolling ? 'Enrolling…' : 'Start Learning Free'}
                 </button>
-                <Link href={`/tracks/${params.slug}`}
+                <Link href={`/tracks/${slug}`}
                   className="px-8 py-4 rounded-xl font-bold text-base border border-white/40 text-white hover:bg-white/10 transition-colors">
                   Preview Track
                 </Link>
@@ -401,7 +404,7 @@ export default function TrackDetailPage({ params }: { params: { slug: string } }
                   </div>
                   {resumeLesson && (
                     <Link
-                      href={`/tracks/${params.slug}/lessons/${resumeLesson.id}`}
+                      href={`/tracks/${slug}/lessons/${resumeLesson.id}`}
                       className="w-full flex items-center gap-2 justify-center py-3 rounded-xl font-semibold text-white text-sm transition-all hover:-translate-y-0.5"
                       style={{ backgroundColor: '#1B6B45' }}
                     >

@@ -172,7 +172,10 @@ function CompletionOverlay({ track, onClose }: { track: TrackData; onClose: () =
 }
 
 // ─── Page ─────────────────────────────────────────────────────
-export default function LessonPage({ params }: { params: { slug: string; lessonId: string } }) {
+export default function LessonPage({ params }: { params: Promise<{ slug: string; lessonId: string }> }) {
+  const unwrappedParams = React.use(params)
+  const { slug, lessonId } = unwrappedParams
+
   const [track, setTrack] = useState<TrackData>(STATIC_TRACK)
   const [modules, setModules] = useState<ModuleData[]>(STATIC_MODULES)
   const [lessons, setLessons] = useState<LessonData[]>(STATIC_LESSONS)
@@ -181,7 +184,7 @@ export default function LessonPage({ params }: { params: { slug: string; lessonI
   const [showCompletion, setShowCompletion] = useState(false)
   const [hintsVisible, setHintsVisible] = useState(false)
 
-  const currentLesson = lessons.find(l => l.id === params.lessonId) ?? lessons[0]
+  const currentLesson = lessons.find(l => l.id === lessonId) ?? lessons[0]
   const allFlat = lessons
   const currentIndex = allFlat.findIndex(l => l.id === currentLesson?.id)
   const prevLesson = currentIndex > 0 ? allFlat[currentIndex - 1] : null
@@ -194,7 +197,7 @@ export default function LessonPage({ params }: { params: { slug: string; lessonI
   useEffect(() => {
     const load = async () => {
       const supabase = createClient()
-      const { data: t } = await supabase.from('tracks').select('id,name,slug,color,lesson_count').eq('slug', params.slug).single()
+      const { data: t } = await supabase.from('tracks').select('id,name,slug,color,lesson_count').eq('slug', slug).single()
       if (t) setTrack(t)
       const trackId = t?.id ?? STATIC_TRACK.id
       const [{ data: mods }, { data: lsns }] = await Promise.all([
@@ -210,7 +213,7 @@ export default function LessonPage({ params }: { params: { slug: string; lessonI
       }
     }
     load()
-  }, [params.slug])
+  }, [slug])
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -246,13 +249,13 @@ export default function LessonPage({ params }: { params: { slug: string; lessonI
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight' || e.key === 'l') { if (nextLesson) window.location.href = `/tracks/${params.slug}/lessons/${nextLesson.id}` }
-      if (e.key === 'ArrowLeft' || e.key === 'j') { if (prevLesson) window.location.href = `/tracks/${params.slug}/lessons/${prevLesson.id}` }
+      if (e.key === 'ArrowRight' || e.key === 'l') { if (nextLesson) window.location.href = `/tracks/${slug}/lessons/${nextLesson.id}` }
+      if (e.key === 'ArrowLeft' || e.key === 'j') { if (prevLesson) window.location.href = `/tracks/${slug}/lessons/${prevLesson.id}` }
       if (e.key === 'c' || e.key === 'C') { markComplete() }
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [nextLesson, prevLesson, params.slug, markComplete])
+  }, [nextLesson, prevLesson, slug, markComplete])
 
   if (!currentLesson) return <div className="p-8 text-[var(--text-muted)]">Lesson not found</div>
 
@@ -265,7 +268,7 @@ export default function LessonPage({ params }: { params: { slug: string; lessonI
         <div className="flex items-center gap-2 text-sm min-w-0">
           <Link href="/tracks" className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors shrink-0">← Tracks</Link>
           <span className="text-[var(--text-muted)]">/</span>
-          <Link href={`/tracks/${params.slug}`} className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors truncate max-w-[140px]">{track.name}</Link>
+          <Link href={`/tracks/${slug}`} className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors truncate max-w-[140px]">{track.name}</Link>
           <span className="text-[var(--text-muted)]">/</span>
           <span className="text-[var(--text-primary)] font-medium truncate max-w-[200px]">{currentLesson.title}</span>
         </div>
@@ -300,7 +303,7 @@ export default function LessonPage({ params }: { params: { slug: string; lessonI
                   const done = completedIds.has(l.id)
                   const active = l.id === currentLesson.id
                   return (
-                    <Link key={l.id} href={`/tracks/${params.slug}/lessons/${l.id}`}
+                    <Link key={l.id} href={`/tracks/${slug}/lessons/${l.id}`}
                       className={cn(
                         'flex items-center gap-2 py-1.5 px-2 rounded-lg text-sm transition-colors mb-0.5',
                         active && 'bg-[var(--brand-dim)] font-semibold text-[var(--text-primary)]',
@@ -378,7 +381,7 @@ export default function LessonPage({ params }: { params: { slug: string; lessonI
       {/* ── Bottom Bar ───────────────────────────────────────── */}
       <footer className="h-[72px] bg-[var(--bg-surface)] border-t border-[var(--border-default)] flex items-center justify-between px-6 shrink-0 z-40">
         {prevLesson ? (
-          <Link href={`/tracks/${params.slug}/lessons/${prevLesson.id}`}
+          <Link href={`/tracks/${slug}/lessons/${prevLesson.id}`}
             className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
             ← Previous: {prevLesson.title}
           </Link>
@@ -393,7 +396,7 @@ export default function LessonPage({ params }: { params: { slug: string; lessonI
         </button>
 
         {nextLesson ? (
-          <Link href={`/tracks/${params.slug}/lessons/${nextLesson.id}`}
+          <Link href={`/tracks/${slug}/lessons/${nextLesson.id}`}
             className="px-6 py-2.5 rounded-xl font-semibold text-sm bg-[var(--brand-primary)] text-white hover:bg-[#22885A] transition-all">
             Next: {nextLesson.title} →
           </Link>
