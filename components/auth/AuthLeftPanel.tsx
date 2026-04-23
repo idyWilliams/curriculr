@@ -3,12 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle2 } from 'lucide-react'
-
-const SparkIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
-  </svg>
-)
+import { Logo } from '@/components/ui/logo'
 
 /* ─── Floating node data ─── */
 const NODES = [
@@ -217,11 +212,8 @@ export function AuthLeftPanel({ pageLabel }: { pageLabel: string }) {
 
       {/* ── Top: Logo + Page Label ── */}
       <div className="relative z-20 flex items-center justify-between">
-        <div className="flex items-center gap-2.5 text-white opacity-80">
-          <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
-            <SparkIcon className="w-5 h-5 text-white" />
-          </div>
-          <span className="font-display font-semibold text-xl tracking-tight">Curriculr</span>
+        <div className="flex items-center text-white opacity-90">
+          <Logo className="text-white h-18 w-[120px]" />
         </div>
         <span className="text-xs font-semibold text-white/40 uppercase tracking-[0.2em]">
           {pageLabel}

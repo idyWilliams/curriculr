@@ -1,25 +1,19 @@
 'use client'
-
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { BookOpen, BarChart2, Users, Globe, User, LayoutDashboard } from 'lucide-react'
+import { Icon } from '@/components/icons/Icon'
 import { cn } from '@/lib/utils'
-
-const SparkIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
-  </svg>
-)
+import { Logo } from '@/components/ui/logo'
 
 const NAV = [
-  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/tracks', label: 'Tracks', icon: BookOpen },
-  { href: '/profile#heatmap', label: 'My Progress', icon: BarChart2 },
-  { href: '/cohorts', label: 'Cohorts', icon: Users },
-  { href: '/community', label: 'Community', icon: Globe },
-  { href: '/profile', label: 'Profile', icon: User },
-]
+  { href: '/dashboard', label: 'Dashboard', icon: 'Dashboard' },
+  { href: '/tracks', label: 'Tracks', icon: 'Tracks' },
+  { href: '/profile#heatmap', label: 'My Progress', icon: 'Progress' },
+  { href: '/cohorts', label: 'Cohorts', icon: 'Cohorts' },
+  { href: '/community', label: 'Community', icon: 'Community' },
+  { href: '/profile', label: 'Profile', icon: 'Profile' },
+] as const
 
 export function Sidebar() {
   const pathname = usePathname()
@@ -27,18 +21,13 @@ export function Sidebar() {
   return (
     <aside className="fixed left-0 top-0 h-screen w-60 border-r border-[var(--border-default)] bg-[var(--bg-elevated)] flex flex-col z-30">
       {/* Logo */}
-      <div className="flex items-center gap-2.5 px-6 py-6 border-b border-[var(--border-default)]">
-        <div className="w-8 h-8 rounded-lg bg-[var(--brand-primary)] flex items-center justify-center shrink-0 shadow-sm">
-          <SparkIcon className="w-4 h-4 text-white" />
-        </div>
-        <span className="font-display text-xl font-semibold text-[var(--text-primary)] tracking-tight">
-          Curriculr
-        </span>
+      <div className="flex items-center px-6 py-6 border-b border-[var(--border-default)]">
+        <Logo className="text-[var(--text-primary)] h-8 w-auto" />
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 overflow-y-auto py-6 space-y-1">
-        {NAV.map(({ href, label, icon: Icon }) => {
+      <nav className="flex-1 overflow-y-auto py-6 px-4 space-y-1">
+        {NAV.map(({ href, label, icon }) => {
           // Special case for hash links so they don't break active state logic
           const baseHref = href.split('#')[0]
           const active = pathname === baseHref || pathname.startsWith(baseHref + '/')
@@ -47,15 +36,28 @@ export function Sidebar() {
             <Link
               key={href}
               href={href}
-              className={cn(
-                'group flex items-center gap-3 px-6 py-3 text-sm transition-all duration-200 relative',
-                active
-                  ? 'bg-[var(--brand-dim)] text-[var(--brand-primary)] font-semibold border-l-[3px] border-[var(--brand-primary)] rounded-r-lg mr-4'
-                  : 'text-[var(--text-secondary)] hover:bg-[var(--bg-base)] hover:text-[var(--text-primary)] rounded-lg mx-4 px-2'
-              )}
+              className="group relative block"
             >
-              <Icon className={cn('w-5 h-5 shrink-0', active ? 'text-[var(--brand-primary)]' : 'text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]')} />
-              <span>{label}</span>
+              {active && (
+                <motion.div
+                  layoutId="sidebar-active"
+                  className="absolute inset-0 bg-[var(--brand-dim)] rounded-xl border border-[var(--brand-primary)]/20"
+                  transition={{ type: 'spring', bounce: 0.15, duration: 0.5 }}
+                />
+              )}
+              
+              <div className="relative z-10 flex items-center gap-3 px-3 py-2">
+                <Icon name={icon as any} size={20} className={cn(
+                  'transition-colors',
+                  active ? 'text-[var(--brand-primary)]' : 'text-[var(--text-muted)] group-hover:text-[var(--text-primary)]'
+                )} />
+                <span className={cn(
+                  'text-sm font-medium transition-colors',
+                  active ? 'text-[var(--brand-primary)]' : 'text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]'
+                )}>
+                  {label}
+                </span>
+              </div>
             </Link>
           )
         })}

@@ -4,18 +4,13 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import {
-  GraduationCap, Building2, Terminal, Rocket, Users,
-  ChevronRight, ChevronLeft, Check, Zap,
+  ChevronRight, ChevronLeft, Check,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
+import { Icon } from '@/components/icons/Icon'
+import { Logo } from '@/components/ui/logo'
 
-/* ─── Spark Icon ─── */
-const SparkIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
-  </svg>
-)
 const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
     <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
@@ -24,11 +19,11 @@ const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 /* ─── Data ─── */
 const ROLES = [
-  { id: 'student', label: 'Student', icon: GraduationCap, desc: 'Learning at my own pace, building skills for the future.', emoji: '🎓', color: '#1B6B45' },
-  { id: 'school', label: 'School / Educator', icon: Building2, desc: 'Managing tracks and curriculum for my students.', emoji: '🏫', color: '#2563EB' },
-  { id: 'company', label: 'Team / Company', icon: Users, desc: 'Upskilling my engineering team with structured learning.', emoji: '🏢', color: '#F97316' },
-  { id: 'developer', label: 'Developer', icon: Terminal, desc: 'Building integrations with the Curriculr API.', emoji: '💻', color: '#7C6AF7' },
-]
+  { id: 'student', label: 'Student', icon: 'Profile', desc: 'Learning at my own pace, building skills for the future.', emoji: '🎓', color: '#1B6B45' },
+  { id: 'school', label: 'School / Educator', icon: 'School', desc: 'Managing tracks and curriculum for my students.', emoji: '🏫', color: '#2563EB' },
+  { id: 'company', label: 'Team / Company', icon: 'Team', desc: 'Upskilling my engineering team with structured learning.', emoji: '🏢', color: '#F97316' },
+  { id: 'developer', label: 'Developer', icon: 'Terminal', desc: 'Building integrations with the Curriculr API.', emoji: '💻', color: '#7C6AF7' },
+] as const
 
 const TRACKS = [
   { id: 'fullstack', title: 'Fullstack Mastery', desc: 'React · Node · Databases · Deployment', emoji: '🚀', color: '#1B6B45', lessons: 36 },
@@ -118,13 +113,8 @@ export default function OnboardingPage() {
       {/* ── TOP BAR ── */}
       <header className="relative z-20 flex items-center justify-between px-8 py-5">
         {/* Logo */}
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-[var(--brand-primary)] flex items-center justify-center shadow-[var(--shadow-brand)]">
-            <SparkIcon className="w-4 h-4 text-white" />
-          </div>
-          <span className="font-display text-lg font-semibold text-[var(--text-primary)] tracking-tight">
-            Curriculr
-          </span>
+        <div className="flex items-center">
+          <Logo className="text-[var(--text-primary)] h-8 w-[120px]" />
         </div>
 
         {/* Step counter */}
@@ -168,7 +158,7 @@ export default function OnboardingPage() {
                     transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                     className="w-14 h-14 rounded-2xl bg-[var(--brand-dim)] flex items-center justify-center mx-auto mb-5"
                   >
-                    <Zap className="w-7 h-7 text-[var(--brand-primary)]" />
+                    <Icon name="XP" size={28} className="text-[var(--brand-primary)]" />
                   </motion.div>
                   <h1 className="font-display text-3xl font-bold text-[var(--text-primary)] mb-2">
                     How will you use Curriculr?
@@ -180,7 +170,6 @@ export default function OnboardingPage() {
 
                 <div className="grid grid-cols-2 gap-4">
                   {ROLES.map((role, i) => {
-                    const Icon = role.icon
                     const selected = form.role === role.id
                     return (
                       <motion.button
@@ -203,7 +192,7 @@ export default function OnboardingPage() {
                         )}
                         <span className="text-2xl mb-3 block">{role.emoji}</span>
                         <div className="flex items-center gap-2 mb-1.5">
-                          <Icon className="w-4 h-4" style={{ color: role.color }} />
+                          <Icon name={role.icon} size={16} color={role.color} />
                           <h3 className="text-base font-semibold text-[var(--text-primary)]">{role.label}</h3>
                         </div>
                         <p className="text-xs text-[var(--text-muted)] leading-relaxed">{role.desc}</p>
@@ -333,12 +322,12 @@ export default function OnboardingPage() {
                   <div className="grid grid-cols-2 gap-4 mb-10">
                     {[
                       {
-                        id: 'solo', icon: Rocket, label: 'Go Solo',
+                        id: 'solo', icon: 'Rocket', label: 'Go Solo',
                         desc: 'Self-paced learning on your own schedule. Complete lessons whenever you want.',
                         emoji: '🚀', color: '#1B6B45',
                       },
                       {
-                        id: 'cohort', icon: Users, label: 'Join a Cohort',
+                        id: 'cohort', icon: 'Team', label: 'Join a Cohort',
                         desc: 'Learn with peers on a structured timeline. Accountability and community.',
                         emoji: '👥', color: '#2563EB',
                       },

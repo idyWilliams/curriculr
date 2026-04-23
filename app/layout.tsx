@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Geist_Mono } from 'next/font/google'
+import { Inter, Geist_Mono, Pacifico } from 'next/font/google'
 import './globals.css'
 
 const inter = Inter({
@@ -10,6 +10,13 @@ const inter = Inter({
 
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
+  subsets: ['latin'],
+  display: 'swap',
+})
+
+const pacifico = Pacifico({
+  variable: '--font-pacifico',
+  weight: '400',
   subsets: ['latin'],
   display: 'swap',
 })
@@ -28,7 +35,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${geistMono.variable} ${pacifico.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans">{children}</body>

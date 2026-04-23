@@ -3,15 +3,10 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { createClient } from '@/lib/supabase/client'
-import { ChevronRight } from 'lucide-react'
-import { GitHubLogoIcon } from '@radix-ui/react-icons'
 import { AuthLeftPanel } from '@/components/auth/AuthLeftPanel'
-
-const SparkIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
-  </svg>
-)
+import { GitHubLogoIcon } from '@radix-ui/react-icons'
+import { Icon } from '@/components/icons/Icon'
+import { Logo } from '@/components/ui/logo'
 
 const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -72,8 +67,8 @@ export default function LoginPage() {
         >
           {/* Header */}
           <div className="flex flex-col items-center text-center mb-8">
-            <div className="w-10 h-10 rounded-xl bg-[var(--brand-primary)] flex items-center justify-center mb-6 shadow-[var(--shadow-brand)]">
-              <SparkIcon className="w-6 h-6 text-white" />
+            <div className="flex items-center justify-center mb-6">
+              <Logo className="text-[var(--text-primary)] h-12 w-[160px]" />
             </div>
             <h2 className="font-display text-[32px] font-bold text-[var(--text-primary)] leading-tight mb-2">
               Welcome back
@@ -130,7 +125,7 @@ export default function LoginPage() {
               className="w-full bg-[var(--brand-primary)] hover:bg-[#22885A] text-white font-semibold rounded-xl py-3 px-4 flex items-center justify-center gap-2 shadow-[var(--shadow-brand)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] transition-all disabled:opacity-50 disabled:pointer-events-none cursor-pointer"
             >
               {loading ? 'Sending link...' : 'Send Magic Link'}
-              {!loading && <ChevronRight className="w-5 h-5" />}
+              {!loading && <Icon name="Dashboard" size={20} />}
             </button>
           </form>
 

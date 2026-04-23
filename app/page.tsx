@@ -21,6 +21,7 @@ import {
   TwitterLogoIcon as Twitter,
   LinkedInLogoIcon as Linkedin
 } from '@radix-ui/react-icons'
+import { Logo } from '@/components/ui/logo'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // SHARED COMPONENTS
@@ -62,13 +63,8 @@ function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Left: Logo */}
-        <a href="/" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-lg bg-brand-primary flex items-center justify-center text-bg-surface shadow-md group-hover:shadow-lg transition-shadow">
-            <SparkIcon className="w-5 h-5" />
-          </div>
-          <span className="font-display text-xl font-semibold text-text-primary tracking-tight">
-            Curriculr
-          </span>
+        <a href="/" className="flex items-center group">
+          <Logo className="text-text-primary h-8 w-auto group-hover:scale-105 transition-transform" />
         </a>
 
         {/* Center: Nav Links */}
@@ -738,13 +734,8 @@ function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Col 1 */}
           <div>
-            <a href="/" className="flex items-center gap-2.5 mb-6 opacity-90 hover:opacity-100 transition-opacity">
-              <div className="w-8 h-8 rounded-lg bg-brand-primary flex items-center justify-center text-bg-surface">
-                <SparkIcon className="w-5 h-5" />
-              </div>
-              <span className="font-display text-xl font-semibold tracking-tight">
-                Curriculr
-              </span>
+            <a href="/" className="flex items-center mb-6 opacity-90 hover:opacity-100 transition-opacity">
+              <Logo className="text-text-inverse h-8 w-auto" />
             </a>
             <p className="text-[#8B949E] mb-6 font-medium">Knowledge as a Service.</p>
             <div className="flex items-center gap-4 text-[#8B949E]">
