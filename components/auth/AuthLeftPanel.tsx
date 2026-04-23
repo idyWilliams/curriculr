@@ -4,13 +4,16 @@ import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle2 } from 'lucide-react'
 import { Logo } from '@/components/ui/logo'
+import { Icon } from '@/components/icons/Icon'
+import { IconName } from '@/components/icons'
 
 /* ─── Floating node data ─── */
-const NODES = [
+const NODES: { id: string; icon: IconName; iconBg: string; iconColor: string; title: string; sub: string; extra?: string; orbit: any; duration: number; initialPos: any }[] = [
   {
     id: 'streak',
-    emoji: '🔥',
-    emojiBg: 'rgba(245,158,11,0.2)',
+    icon: 'Flame',
+    iconBg: 'rgba(245,158,11,0.2)',
+    iconColor: '#F59E0B',
     title: '7-day streak',
     sub: 'Frontend Engineering',
     // Orbit path — gentle figure-8
@@ -24,8 +27,9 @@ const NODES = [
   },
   {
     id: 'cert',
-    emoji: '🎓',
-    emojiBg: 'rgba(124,106,247,0.2)',
+    icon: 'Certificate',
+    iconBg: 'rgba(124,106,247,0.2)',
+    iconColor: '#7C6AF7',
     title: 'Certificate Earned',
     sub: 'UI/UX Design',
     extra: 'Chioma A.',
@@ -39,8 +43,9 @@ const NODES = [
   },
   {
     id: 'xp',
-    emoji: '⚡',
-    emojiBg: 'rgba(36,201,126,0.2)',
+    icon: 'XP',
+    iconBg: 'rgba(36,201,126,0.2)',
+    iconColor: '#24C97E',
     title: '+200 XP',
     sub: 'Project Approved',
     orbit: {
@@ -127,9 +132,9 @@ function FloatingNode({
           >
             <div
               className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
-              style={{ backgroundColor: node.emojiBg }}
+              style={{ backgroundColor: node.iconBg }}
             >
-              <span className="text-xl">{node.emoji}</span>
+              <Icon name={node.icon} size={20} color={node.iconColor} />
             </div>
             <div className="flex-1 min-w-0">
               <div className="text-white font-semibold text-sm leading-tight">{node.title}</div>

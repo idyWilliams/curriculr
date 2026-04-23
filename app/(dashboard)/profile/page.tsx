@@ -5,6 +5,7 @@ import { motion, useInView } from 'framer-motion'
 import { Share2, Download, Lock, ChevronRight, ExternalLink } from 'lucide-react'
 import Link from 'next/link'
 import { LearnerPassport } from '@/components/profile/LearnerPassport'
+import { Icon } from '@/components/icons/Icon'
 
 // ─── Seeded random for consistent heatmap data ───
 function seededRandom(seed: number) {
@@ -52,15 +53,15 @@ const COMPLETED_TRACKS = [
   { name: 'UI/UX Design', slug: 'ui-ux', color: '#7C6AF7' },
 ]
 const BADGES = [
-  { emoji: '🏁', name: 'First Step', earned: true, bg: '#D1FAE5', desc: 'Complete your first lesson' },
-  { emoji: '🔥', name: 'On Fire', earned: true, bg: '#FEF3C7', desc: '7-day learning streak' },
-  { emoji: '⚡', name: 'Speed Learner', earned: true, bg: '#DBEAFE', desc: 'Complete 5 lessons in one day' },
-  { emoji: '🏗️', name: 'Builder', earned: true, bg: '#FFF3E0', desc: 'Submit 3 projects' },
-  { emoji: '🎓', name: 'Graduate', earned: true, bg: '#EDE9FE', desc: 'Complete a full track' },
-  { emoji: '🌍', name: 'African Pride', earned: true, bg: '#D1FAE5', desc: 'Join from an African country' },
-  { emoji: '👥', name: 'Cohort Champion', earned: false, bg: '#EFEDE8', desc: 'Top your cohort leaderboard' },
-  { emoji: '🔓', name: 'Open Source Hero', earned: false, bg: '#EFEDE8', desc: 'Contribute to an open source project' },
-  { emoji: '🤝', name: 'Connector', earned: false, bg: '#EFEDE8', desc: 'Refer 5 friends' },
+  { icon: 'Milestone', iconColor: '#059669', name: 'First Step', earned: true, bg: '#D1FAE5', desc: 'Complete your first lesson' },
+  { icon: 'Flame', iconColor: '#D97706', name: 'On Fire', earned: true, bg: '#FEF3C7', desc: '7-day learning streak' },
+  { icon: 'XP', iconColor: '#2563EB', name: 'Speed Learner', earned: true, bg: '#DBEAFE', desc: 'Complete 5 lessons in one day' },
+  { icon: 'Project', iconColor: '#EA580C', name: 'Builder', earned: true, bg: '#FFF3E0', desc: 'Submit 3 projects' },
+  { icon: 'Certificate', iconColor: '#7C3AED', name: 'Graduate', earned: true, bg: '#EDE9FE', desc: 'Complete a full track' },
+  { icon: 'BuiltInAfrica', iconColor: '#059669', name: 'African Pride', earned: true, bg: '#D1FAE5', desc: 'Join from an African country' },
+  { icon: 'Team', iconColor: '#6B7280', name: 'Cohort Champion', earned: false, bg: '#EFEDE8', desc: 'Top your cohort leaderboard' },
+  { icon: 'Code', iconColor: '#6B7280', name: 'Open Source Hero', earned: false, bg: '#EFEDE8', desc: 'Contribute to an open source project' },
+  { icon: 'Community', iconColor: '#6B7280', name: 'Connector', earned: false, bg: '#EFEDE8', desc: 'Refer 5 friends' },
 ]
 const ACTIVITY = [
   { dot: '#1B6B45', title: 'Completed React Server Components', sub: 'Fullstack Mastery · +50 XP', time: '2 hours ago' },
@@ -328,7 +329,7 @@ export default function ProfilePage() {
                 >
                   <div className="w-16 h-16 rounded-full flex items-center justify-center mb-2" style={{ backgroundColor: b.bg }}>
                     {b.earned ? (
-                      <span className="text-3xl">{b.emoji}</span>
+                      <Icon name={b.icon as any} size={32} color={b.iconColor} />
                     ) : (
                       <Lock className="w-5 h-5 text-[var(--text-muted)]" />
                     )}

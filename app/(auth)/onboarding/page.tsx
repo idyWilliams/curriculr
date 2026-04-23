@@ -19,20 +19,20 @@ const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 /* ─── Data ─── */
 const ROLES = [
-  { id: 'student', label: 'Student', icon: 'Profile', desc: 'Learning at my own pace, building skills for the future.', emoji: '🎓', color: '#1B6B45' },
-  { id: 'school', label: 'School / Educator', icon: 'School', desc: 'Managing tracks and curriculum for my students.', emoji: '🏫', color: '#2563EB' },
-  { id: 'company', label: 'Team / Company', icon: 'Team', desc: 'Upskilling my engineering team with structured learning.', emoji: '🏢', color: '#F97316' },
-  { id: 'developer', label: 'Developer', icon: 'Terminal', desc: 'Building integrations with the Curriculr API.', emoji: '💻', color: '#7C6AF7' },
+  { id: 'student', label: 'Student', icon: 'Profile', desc: 'Learning at my own pace, building skills for the future.', color: '#1B6B45' },
+  { id: 'school', label: 'School / Educator', icon: 'School', desc: 'Managing tracks and curriculum for my students.', color: '#2563EB' },
+  { id: 'company', label: 'Team / Company', icon: 'Team', desc: 'Upskilling my engineering team with structured learning.', color: '#F97316' },
+  { id: 'developer', label: 'Developer', icon: 'Terminal', desc: 'Building integrations with the Curriculr API.', color: '#7C6AF7' },
 ] as const
 
 const TRACKS = [
-  { id: 'fullstack', title: 'Fullstack Mastery', desc: 'React · Node · Databases · Deployment', emoji: '🚀', color: '#1B6B45', lessons: 36 },
-  { id: 'frontend', title: 'Frontend Engineering', desc: 'CSS · React · Next.js · Performance', emoji: '🎨', color: '#2563EB', lessons: 28 },
-  { id: 'ai', title: 'Generative AI', desc: 'LLMs · Agents · RAG · Fine-tuning', emoji: '🤖', color: '#EC4899', lessons: 24 },
-  { id: 'systems', title: 'Systems Design', desc: 'Scalability · Reliability · Distributed Systems', emoji: '⚙️', color: '#F97316', lessons: 20 },
-  { id: 'uiux', title: 'UI/UX Design', desc: 'Figma · Prototyping · Design Systems', emoji: '✏️', color: '#F59E0B', lessons: 16 },
-  { id: 'product', title: 'Product Strategy', desc: 'Roadmaps · Metrics · Go-to-Market', emoji: '📊', color: '#7C6AF7', lessons: 18 },
-]
+  { id: 'fullstack', title: 'Fullstack Mastery', desc: 'React · Node · Databases · Deployment', icon: 'Module', color: '#1B6B45', lessons: 36 },
+  { id: 'frontend', title: 'Frontend Engineering', desc: 'CSS · React · Next.js · Performance', icon: 'Terminal', color: '#2563EB', lessons: 28 },
+  { id: 'ai', title: 'Generative AI', desc: 'LLMs · Agents · RAG · Fine-tuning', icon: 'Lesson', color: '#EC4899', lessons: 24 },
+  { id: 'systems', title: 'Systems Design', desc: 'Scalability · Reliability · Distributed Systems', icon: 'Database', color: '#F97316', lessons: 20 },
+  { id: 'uiux', title: 'UI/UX Design', desc: 'Figma · Prototyping · Design Systems', icon: 'Article', color: '#F59E0B', lessons: 16 },
+  { id: 'product', title: 'Product Strategy', desc: 'Roadmaps · Metrics · Go-to-Market', icon: 'BuiltInAfrica', color: '#7C6AF7', lessons: 18 },
+] as const
 
 /* ─── Animations ─── */
 const pageTransition = {
@@ -190,11 +190,10 @@ export default function OnboardingPage() {
                             <Check className="w-3.5 h-3.5 text-white" />
                           </div>
                         )}
-                        <span className="text-2xl mb-3 block">{role.emoji}</span>
-                        <div className="flex items-center gap-2 mb-1.5">
-                          <Icon name={role.icon} size={16} color={role.color} />
-                          <h3 className="text-base font-semibold text-[var(--text-primary)]">{role.label}</h3>
+                        <div className="mb-4 bg-[var(--bg-elevated)] w-10 h-10 rounded-full flex items-center justify-center">
+                          <Icon name={role.icon as any} size={20} color={role.color} />
                         </div>
+                        <h3 className="text-base font-semibold text-[var(--text-primary)] mb-1.5">{role.label}</h3>
                         <p className="text-xs text-[var(--text-muted)] leading-relaxed">{role.desc}</p>
                       </motion.button>
                     )
@@ -246,7 +245,7 @@ export default function OnboardingPage() {
                           </div>
                         )}
                         <div className="flex items-center gap-3 mb-2">
-                          <span className="text-xl">{track.emoji}</span>
+                          <Icon name={track.icon as any} size={24} color={track.color} />
                           <h3 className="text-sm font-bold text-[var(--text-primary)]">{track.title}</h3>
                         </div>
                         <p className="text-xs text-[var(--text-muted)] leading-relaxed mb-3">{track.desc}</p>
@@ -322,14 +321,14 @@ export default function OnboardingPage() {
                   <div className="grid grid-cols-2 gap-4 mb-10">
                     {[
                       {
-                        id: 'solo', icon: 'Rocket', label: 'Go Solo',
+                        id: 'solo', icon: 'LevelUp', label: 'Go Solo',
                         desc: 'Self-paced learning on your own schedule. Complete lessons whenever you want.',
-                        emoji: '🚀', color: '#1B6B45',
+                        color: '#1B6B45',
                       },
                       {
                         id: 'cohort', icon: 'Team', label: 'Join a Cohort',
                         desc: 'Learn with peers on a structured timeline. Accountability and community.',
-                        emoji: '👥', color: '#2563EB',
+                        color: '#2563EB',
                       },
                     ].map((opt, i) => {
                       const selected = form.mode === opt.id
@@ -352,7 +351,9 @@ export default function OnboardingPage() {
                               <Check className="w-3 h-3 text-white" />
                             </div>
                           )}
-                          <span className="text-3xl mb-3 block">{opt.emoji}</span>
+                          <div className="mb-4 bg-[var(--bg-elevated)] w-12 h-12 rounded-full flex items-center justify-center mx-auto">
+                            <Icon name={opt.icon as any} size={24} color={opt.color} />
+                          </div>
                           <h3 className="text-base font-bold text-[var(--text-primary)] mb-2">{opt.label}</h3>
                           <p className="text-xs text-[var(--text-muted)] leading-relaxed">{opt.desc}</p>
                         </motion.button>

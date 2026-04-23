@@ -2,6 +2,9 @@
 
 import React, { useRef, useState } from 'react'
 import html2canvas from 'html2canvas'
+import { Icon } from '@/components/icons/Icon'
+import { IconName } from '@/components/icons'
+import { Logo } from '../ui/logo'
 
 /* ─── Types ─── */
 interface PassportData {
@@ -21,7 +24,7 @@ interface PassportData {
   hoursLearned: number
   cohortRank: number
   completedTracks: { name: string; lessons: number; color: string }[]
-  badges: { emoji: string; name: string; bg: string }[]
+  badges: { icon: IconName; iconColor: string; name: string; bg: string }[]
 }
 
 const DEFAULT_DATA: PassportData = {
@@ -46,14 +49,14 @@ const DEFAULT_DATA: PassportData = {
     { name: 'Generative AI', lessons: 14, color: '#EC4899' },
   ],
   badges: [
-    { emoji: '🏁', name: 'First Step', bg: 'rgba(36,201,126,0.12)' },
-    { emoji: '🔥', name: 'On Fire', bg: 'rgba(245,158,11,0.12)' },
-    { emoji: '⚡', name: 'Speed Learner', bg: 'rgba(37,99,235,0.12)' },
-    { emoji: '🏗️', name: 'Builder', bg: 'rgba(249,115,22,0.12)' },
-    { emoji: '🎓', name: 'Graduate', bg: 'rgba(124,106,247,0.12)' },
-    { emoji: '🌍', name: 'African Pride', bg: 'rgba(36,201,126,0.12)' },
-    { emoji: '⚡', name: 'Streak Pro', bg: 'rgba(245,158,11,0.12)' },
-    { emoji: '🔓', name: 'Open Source', bg: 'rgba(255,255,255,0.06)' },
+    { icon: 'Milestone', iconColor: '#059669', name: 'First Step', bg: 'rgba(36,201,126,0.12)' },
+    { icon: 'Flame', iconColor: '#D97706', name: 'On Fire', bg: 'rgba(245,158,11,0.12)' },
+    { icon: 'XP', iconColor: '#2563EB', name: 'Speed Learner', bg: 'rgba(37,99,235,0.12)' },
+    { icon: 'Project', iconColor: '#EA580C', name: 'Builder', bg: 'rgba(249,115,22,0.12)' },
+    { icon: 'Certificate', iconColor: '#7C3AED', name: 'Graduate', bg: 'rgba(124,106,247,0.12)' },
+    { icon: 'BuiltInAfrica', iconColor: '#059669', name: 'African Pride', bg: 'rgba(36,201,126,0.12)' },
+    { icon: 'Streak', iconColor: '#D97706', name: 'Streak Pro', bg: 'rgba(245,158,11,0.12)' },
+    { icon: 'Code', iconColor: '#9CA3AF', name: 'Open Source', bg: 'rgba(255,255,255,0.06)' },
   ],
 }
 
@@ -108,12 +111,15 @@ function PassportDocument({ data }: { data: PassportData }) {
         }}>
           {/* TOP: Branding */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+            {/* <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
               <SparkSVG />
               <span style={{ fontFamily: "'Cal Sans', 'Inter', sans-serif", fontSize: 13, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.15em' }}>
                 Curriculr
               </span>
-            </div>
+            </div> */}
+              <div className="flex items-center text-white opacity-90">
+                      <Logo className="text-white h-18 w-[120px]" />
+                    </div>
             <div style={{ fontSize: 10, fontWeight: 600, color: 'rgba(36,201,126,0.8)', letterSpacing: '0.25em', textTransform: 'uppercase' as const, marginBottom: 16 }}>
               LEARNER PASSPORT
             </div>
@@ -161,8 +167,9 @@ function PassportDocument({ data }: { data: PassportData }) {
               <span style={{
                 background: 'rgba(249,115,22,0.12)', border: '1px solid rgba(249,115,22,0.25)',
                 borderRadius: 999, padding: '5px 14px', fontSize: 11, fontWeight: 600, color: '#F97316',
+                display: 'inline-flex', alignItems: 'center', gap: 4
               }}>
-                🔥 {data.streak} Day Streak
+                <Icon name="Flame" size={12} color="#F97316" /> {data.streak} Day Streak
               </span>
             </div>
           </div>
@@ -292,7 +299,7 @@ function PassportDocument({ data }: { data: PassportData }) {
                       width: 48, height: 48, borderRadius: '50%', background: b.bg,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                     }}>
-                      <span style={{ fontSize: 20 }}>{b.emoji}</span>
+                      <Icon name={b.icon} size={24} color={b.iconColor} />
                     </div>
                     <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.5)', textAlign: 'center' as const, lineHeight: 1.2 }}>
                       {b.name}
