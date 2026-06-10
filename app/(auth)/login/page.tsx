@@ -21,13 +21,18 @@ export default function LoginPage() {
   const supabase = createClient()
 
   const handleOAuthLogin = async (provider: 'github' | 'google') => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider,
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
-    })
-    if (error) setMessage({ type: 'error', text: error.message })
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
+      })
+      if (error) throw error
+    } catch (err: any) {
+      console.error('OAuth Error:', err)
+      setMessage({ type: 'error', text: err.message || 'Failed to connect to authentication provider.' })
+    }
   }
 
   const handleMagicLink = async (e: React.FormEvent) => {
@@ -35,19 +40,30 @@ export default function LoginPage() {
     setLoading(true)
     setMessage(null)
 
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
-      },
-    })
+    try {
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+        },
+      })
 
-    if (error) {
-      setMessage({ type: 'error', text: error.message })
-    } else {
-      setMessage({ type: 'success', text: 'Check your email for the login link!' })
+      if (error) {
+        throw error
+      } else {
+        setMessage({ type: 'success', text: 'Check your email for the login link!' })
+      }
+    } catch (err: any) {
+      console.error('Magic Link Error:', err)
+      // Check for common fetch errors
+      const errorMessage = err.message === 'Failed to fetch' 
+        ? 'Connection error. Please check your internet or if Supabase is reachable.' 
+        : err.message || 'An unexpected error occurred.'
+      
+      setMessage({ type: 'error', text: errorMessage })
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   return (

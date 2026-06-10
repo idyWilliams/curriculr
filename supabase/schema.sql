@@ -1,5 +1,47 @@
 -- CREATE TABLES
 
+CREATE TABLE IF NOT EXISTS tracks (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  name text NOT NULL,
+  slug text UNIQUE NOT NULL,
+  category text,
+  color text,
+  emoji text,
+  description text,
+  lesson_count integer DEFAULT 0,
+  level text,
+  hours integer,
+  skills text[],
+  enrolled_count integer DEFAULT 0,
+  module_count integer DEFAULT 0,
+  is_published boolean DEFAULT true,
+  created_at timestamptz DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS profiles (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE UNIQUE,
+  full_name text,
+  avatar_url text,
+  role text,
+  interested_tracks text[],
+  onboarding_completed boolean DEFAULT false,
+  xp integer DEFAULT 0,
+  level integer DEFAULT 1,
+  updated_at timestamptz DEFAULT now(),
+  created_at timestamptz DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS enrollments (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE,
+  track_id uuid REFERENCES tracks(id) ON DELETE CASCADE,
+  progress_percent integer DEFAULT 0,
+  status text DEFAULT 'active', -- 'active', 'completed'
+  enrolled_at timestamptz DEFAULT now(),
+  UNIQUE(user_id, track_id)
+);
+
 CREATE TABLE IF NOT EXISTS modules (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   track_id uuid REFERENCES tracks(id) ON DELETE CASCADE,
